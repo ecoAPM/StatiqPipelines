@@ -19,7 +19,7 @@ namespace ecoAPM.StatiqPipelines
 			Isolated = true;
 			InputModules = new ModuleList
 			{
-				new NodeRestore(_ => new Process()),
+				new NodeRestore(),
 				new ReadFiles(npmPath(paths))
 			};
 			ProcessModules = new ModuleList

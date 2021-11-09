@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Statiq.Common;
 
@@ -16,7 +17,7 @@ namespace ecoAPM.StatiqPipelines
 			_isWindows = isWindows ?? OperatingSystem.IsWindows;
 		}
 
-		protected override void BeforeExecution(IExecutionContext context)
+		protected override async Task BeforeExecutionAsync(IExecutionContext context)
 		{
 			var node_modules = context.FileSystem.GetRootDirectory("node_modules");
 			if (node_modules.Exists)
@@ -33,7 +34,7 @@ namespace ecoAPM.StatiqPipelines
 				? GetWindowsProcess(context, yarnLock.Exists)
 				: GetPosixProcess(context, yarnLock.Exists);
 
-			process?.WaitForExit();
+			await (process?.WaitForExitAsync() ?? Task.CompletedTask);
 		}
 
 		private Process GetWindowsProcess(IExecutionContext context, bool usesYarn)
@@ -48,12 +49,12 @@ namespace ecoAPM.StatiqPipelines
 			return process;
 		}
 
-		private static ProcessStartInfo ProcessStartInfo(IExecutionContext context, string command, string args = null) =>
+		private static ProcessStartInfo ProcessStartInfo(IExecutionState state, string command, string args = null) =>
 			new(command, args ?? string.Empty)
 			{
 				RedirectStandardInput = true,
 				RedirectStandardOutput = true,
-				WorkingDirectory = context.FileSystem.RootPath.ToString()
+				WorkingDirectory = state.FileSystem.RootPath.ToString()
 			};
 
 		private Process GetPosixProcess(IExecutionContext context, bool usesYarn)
