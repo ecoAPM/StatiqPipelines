@@ -12,7 +12,7 @@ Pipelines and helpers used in ecoAPM's static sites
 
 ## Requirements
 
-- .NET SDK 5.0
+- .NET SDK 6
 
 ## Installation
 
