@@ -29,7 +29,7 @@ public class NodeRestore : Module
 		context.Log(LogLevel.Debug, "Restoring node_modules...");
 
 		var yarnLock = context.FileSystem.GetRootFile("yarn.lock");
-		context.Log(LogLevel.Debug, $"Project uses {(yarnLock.Exists ? "yarn" : "npm")}");
+		context.Log(LogLevel.Debug, "Project uses {program}", yarnLock.Exists ? "yarn" : "npm");
 		var process = _isWindows()
 			? GetWindowsProcess(context, yarnLock.Exists)
 			: GetPosixProcess(context, yarnLock.Exists);
@@ -45,7 +45,7 @@ public class NodeRestore : Module
 
 		var cmd = usesYarn ? "yarn" : "npm install";
 		process?.StandardInput.WriteLine(cmd + " & exit");
-		context.Log(LogLevel.Debug, $"Starting {cmd} in cmd...");
+		context.Log(LogLevel.Debug, "Starting {cmd} in cmd...", cmd);
 		return process;
 	}
 
@@ -63,7 +63,7 @@ public class NodeRestore : Module
 			? ProcessStartInfo(context, "yarn")
 			: ProcessStartInfo(context, "npm", "install");
 
-		context.Log(LogLevel.Debug, $"Starting {info}...");
+		context.Log(LogLevel.Debug, "Starting {info}...", info);
 		var process = _newProcess(info);
 		process?.Start();
 		return process;
