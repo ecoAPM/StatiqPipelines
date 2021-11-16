@@ -1,4 +1,3 @@
-using System.IO;
 using Statiq.Common;
 using Statiq.Core;
 

@@ -1,6 +1,4 @@
-using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using Statiq.Common;
 using Statiq.Testing;
 using Xunit;
@@ -18,7 +16,7 @@ public class NodeRestoreTests
 
 		var process = new ProcessStartInfo();
 
-		Process NewProcess(ProcessStartInfo i)
+		Process? NewProcess(ProcessStartInfo i)
 		{
 			process = i;
 			return null;
@@ -42,7 +40,7 @@ public class NodeRestoreTests
 
 		var process = new ProcessStartInfo();
 
-		Process NewProcess(ProcessStartInfo i)
+		Process? NewProcess(ProcessStartInfo i)
 		{
 			process = i;
 			return null;
@@ -66,7 +64,7 @@ public class NodeRestoreTests
 
 		var process = new ProcessStartInfo();
 
-		Process NewProcess(ProcessStartInfo i)
+		Process? NewProcess(ProcessStartInfo i)
 		{
 			process = i;
 			return null;
@@ -92,7 +90,7 @@ public class NodeRestoreTests
 
 		var process = new ProcessStartInfo();
 
-		Process NewProcess(ProcessStartInfo i)
+		Process? NewProcess(ProcessStartInfo i)
 		{
 			process = i;
 			return null;

@@ -1,6 +1,4 @@
-using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Statiq.Common;
 
@@ -8,10 +6,10 @@ namespace ecoAPM.StatiqPipelines;
 
 public class NodeRestore : Module
 {
-	private readonly Func<ProcessStartInfo, Process> _newProcess;
+	private readonly Func<ProcessStartInfo, Process?> _newProcess;
 	private readonly Func<bool> _isWindows;
 
-	public NodeRestore(Func<ProcessStartInfo, Process> newProcess = null, Func<bool> isWindows = null)
+	public NodeRestore(Func<ProcessStartInfo, Process?>? newProcess = null, Func<bool>? isWindows = null)
 	{
 		_newProcess = newProcess ?? (info => new Process { StartInfo = info });
 		_isWindows = isWindows ?? OperatingSystem.IsWindows;
@@ -37,7 +35,7 @@ public class NodeRestore : Module
 		await (process?.WaitForExitAsync() ?? Task.CompletedTask);
 	}
 
-	private Process GetWindowsProcess(IExecutionContext context, bool usesYarn)
+	private Process? GetWindowsProcess(IExecutionContext context, bool usesYarn)
 	{
 		var info = ProcessStartInfo(context, "cmd");
 		var process = _newProcess(info);
@@ -49,7 +47,7 @@ public class NodeRestore : Module
 		return process;
 	}
 
-	private static ProcessStartInfo ProcessStartInfo(IExecutionState state, string command, string args = null) =>
+	private static ProcessStartInfo ProcessStartInfo(IExecutionState state, string command, string? args = null) =>
 		new(command, args ?? string.Empty)
 		{
 			RedirectStandardInput = true,
@@ -57,7 +55,7 @@ public class NodeRestore : Module
 			WorkingDirectory = state.FileSystem.RootPath.ToString()
 		};
 
-	private Process GetPosixProcess(IExecutionContext context, bool usesYarn)
+	private Process? GetPosixProcess(IExecutionContext context, bool usesYarn)
 	{
 		var info = usesYarn
 			? ProcessStartInfo(context, "yarn")
