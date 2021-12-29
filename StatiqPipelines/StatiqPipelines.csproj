@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
-		<Version>0.2.0</Version>
+		<Version>1.0.0</Version>
 		<PackageId>ecoAPM.StatiqPipelines</PackageId>
 		<RootNamespace>ecoAPM.StatiqPipelines</RootNamespace>
 		<Description>Pipelines and helpers used in ecoAPM's static sites</Description>
