@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
-		<Version>1.2.0</Version>
+		<TargetFramework>net8.0</TargetFramework>
+		<Version>2.0.0</Version>
 		<PackageId>ecoAPM.StatiqPipelines</PackageId>
 		<RootNamespace>ecoAPM.StatiqPipelines</RootNamespace>
 		<Description>Pipelines and helpers used in ecoAPM's static sites</Description>
@@ -22,7 +22,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="all"/>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="all"/>
 		<PackageReference Include="Statiq.Core" Version="1.0.0-beta.71"/>
 		<None Include="../README.md" CopyToOutputDirectory="PreserveNewest" Pack="true" PackagePath="."/>
 	</ItemGroup>
