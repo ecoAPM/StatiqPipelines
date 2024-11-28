@@ -68,8 +68,11 @@ public class CopyFromNPM : Pipeline
 
 	private string RelativeOutputPath(IDocument doc)
 		=> _paths.TryGetValue(RelativePath(doc.Source), out var path)
-			? !path.IsNullOrWhiteSpace() ? path : doc.Source.FileName.ToString()
+			? GetPath(path) ?? doc.Source.FileName.ToString()
 			: HandleWildcard(doc);
+
+	private static string? GetPath(string path)
+		=> !path.IsNullOrWhiteSpace() ? path : null;
 
 	private string HandleWildcard(IDocument doc)
 	{

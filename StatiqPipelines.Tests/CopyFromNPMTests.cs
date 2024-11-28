@@ -7,6 +7,8 @@ namespace ecoAPM.StatiqPipelines.Tests;
 
 public class CopyFromNPMTests
 {
+	private static readonly IEnumerable<string> Paths = ["x/1.js", "y/2.js"];
+
 	[Fact]
 	public async Task NodeModulesAreTranslated()
 	{
@@ -15,7 +17,7 @@ public class CopyFromNPMTests
 		context.FileSystem.GetInputFile("/code/app/node_modules/x/1.js").OpenWrite();
 		context.FileSystem.GetInputFile("/code/app/node_modules/y/2.js").OpenWrite();
 
-		var pipeline = new CopyFromNPM(new[] { "x/1.js", "y/2.js" }, "assets/js");
+		var pipeline = new CopyFromNPM(Paths, "assets/js");
 		var input = pipeline.InputModules.First(m => m is ReadFiles);
 
 		//act
@@ -40,7 +42,7 @@ public class CopyFromNPMTests
 		var context = new TestExecutionContext();
 		context.SetInputs(docs);
 
-		var pipeline = new CopyFromNPM(new[] { "x/1.js", "y/2.js" }, "assets/js");
+		var pipeline = new CopyFromNPM(Paths, "assets/js");
 		var copy = pipeline.ProcessModules.First(m => m is SetDestination);
 
 		//act
