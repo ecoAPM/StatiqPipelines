@@ -10,7 +10,7 @@
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0"/>
 		<PackageReference Include="Statiq.Testing" Version="1.0.0-beta.72"/>
 		<PackageReference Include="xunit" Version="2.9.2"/>
-		<PackageReference Include="xunit.runner.visualstudio" Version="3.0.0" PrivateAssets="all"/>
+		<PackageReference Include="xunit.runner.visualstudio" Version="3.0.1" PrivateAssets="all"/>
 		<PackageReference Include="coverlet.collector" Version="6.0.3" PrivateAssets="all"/>
 		<ProjectReference Include="../StatiqPipelines/StatiqPipelines.csproj"/>
 	</ItemGroup>
