@@ -17,17 +17,21 @@ public class NodeRestore : Module
 
 	protected override async Task BeforeExecutionAsync(IExecutionContext context)
 	{
-		var node_modules = context.FileSystem.GetRootDirectory("node_modules");
-		if (node_modules.Exists)
+		var nodeModules = context.FileSystem.GetRootDirectory("node_modules");
+		if (nodeModules.Exists)
 		{
-			context.Log(LogLevel.Debug, "Skipping restore: node_modules already exists");
+			if (context.IsEnabled(LogLevel.Debug))
+				context.Log(LogLevel.Debug, "Skipping restore: node_modules already exists");
 			return;
 		}
 
 		context.Log(LogLevel.Debug, "Restoring node_modules...");
 
 		var yarnLock = context.FileSystem.GetRootFile("yarn.lock");
-		context.Log(LogLevel.Debug, "Project uses {program}", yarnLock.Exists ? "yarn" : "npm");
+
+		if (context.IsEnabled(LogLevel.Debug))
+			context.Log(LogLevel.Debug, "Project uses {Program}", yarnLock.Exists ? "yarn" : "npm");
+
 		var process = _isWindows()
 			? GetWindowsProcess(context, yarnLock.Exists)
 			: GetPosixProcess(context, yarnLock.Exists);
@@ -43,7 +47,10 @@ public class NodeRestore : Module
 
 		var cmd = usesYarn ? "yarn" : "npm install";
 		process?.StandardInput.WriteLine(cmd + " & exit");
-		context.Log(LogLevel.Debug, "Starting {cmd} in cmd...", cmd);
+
+		if (context.IsEnabled(LogLevel.Debug))
+			context.Log(LogLevel.Debug, "Starting {Command} in cmd...", cmd);
+
 		return process;
 	}
 
@@ -61,9 +68,12 @@ public class NodeRestore : Module
 			? ProcessStartInfo(context, "yarn")
 			: ProcessStartInfo(context, "npm", "install");
 
-		context.Log(LogLevel.Debug, "Starting {info}...", info);
+		if (context.IsEnabled(LogLevel.Debug))
+			context.Log(LogLevel.Debug, "Starting {Info}...", info);
+
 		var process = _newProcess(info);
 		process?.Start();
+
 		return process;
 	}
 }
