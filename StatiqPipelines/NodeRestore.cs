@@ -32,7 +32,7 @@ public class NodeRestore : Module
 		if (context.IsEnabled(LogLevel.Debug))
 			context.Log(LogLevel.Debug, "Project uses {Program}", yarnLock.Exists ? "yarn" : "npm");
 
-		var process = _isWindows()
+		using var process = _isWindows()
 			? GetWindowsProcess(context, yarnLock.Exists)
 			: GetPosixProcess(context, yarnLock.Exists);
 
