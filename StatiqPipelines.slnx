@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="StatiqPipelines.Tests/StatiqPipelines.Tests.csproj" />
+  <Project Path="StatiqPipelines/StatiqPipelines.csproj" />
+</Solution>
